@@ -17,12 +17,13 @@ fn countdown(time: &mut u16, status: Status, pomodoros: u8) {
     *time -= 1;
     let seconds = *time % 60;
     let minutes = (*time / 60) % 60;
+    let pomodoros = format!("#{}", pomodoros.to_string());
     print!(
-        "\r#{}: {:?}: {:0>2}:{:0>2}\r",
-        pomodoros.to_string().red(),
+        "\r {:?}: {:0>2}:{:0>2} ({})\r",
         status,
         minutes,
-        seconds
+        seconds,
+        pomodoros.green().bold(),
     );
     let _ = std::io::stdout().flush();
 }
@@ -48,6 +49,7 @@ fn main() {
     let mut status = Status::TimerOn;
     let mut time = duration_timer;
 
+    // Notification::new().show().unwrap();
     loop {
         sleep(interval);
         countdown(&mut time, status, pomodoros);
