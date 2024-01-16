@@ -7,4 +7,5 @@ edition = "2021"
 
 [dependencies]
 colored = "2.0.4"
+indicatif = "0.17.6"
 notify-rust = "4.9.0"

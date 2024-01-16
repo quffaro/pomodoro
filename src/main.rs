@@ -13,7 +13,7 @@ enum Status {
     LongBreak,
 }
 
-fn countdown(time: &mut u16, status: Status, pomodoros: u8) {
+fn countdown(time: &mut u64, status: Status, pomodoros: u8) {
     *time -= 1;
     let seconds = *time % 60;
     let minutes = (*time / 60) % 60;
@@ -49,7 +49,13 @@ fn main() {
     let mut status = Status::TimerOn;
     let mut time = duration_timer;
 
-    // Notification::new().show().unwrap();
+    Notification::new()
+        .summary("Pomodoro")
+        .body(format!("Started!").as_str())
+        .timeout(Timeout::Milliseconds(6000))
+        .show()
+        .unwrap();
+    print!("\x07'");
     loop {
         sleep(interval);
         countdown(&mut time, status, pomodoros);
